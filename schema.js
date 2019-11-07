@@ -4,7 +4,7 @@
 module.exports = {
   description: 'The configuration schema of the "customize-engine-handlebars"',
   definitions: {
-    'stringArray': {
+    stringArray: {
       type: 'array',
       items: {
         type: 'string'
@@ -12,15 +12,15 @@ module.exports = {
     }
   },
   properties: {
-    'templates': {
+    templates: {
       description: 'Path to a directory tree containing Handlebars-templates',
       type: 'string'
     },
-    'partials': {
+    partials: {
       description: 'Path to a directory tree containing Handlebars-partials',
       type: 'string'
     },
-    'helpers': {
+    helpers: {
       anyOf: [
         {
           description: 'JavaScript-object with helpers (key=name, value=function)',
@@ -38,7 +38,7 @@ module.exports = {
         }
       ]
     },
-    'preprocessor': {
+    preprocessor: {
       anyOf: [
         {
           type: 'function',
@@ -50,10 +50,10 @@ module.exports = {
         }
       ]
     },
-    'data': {
+    data: {
       description: 'The data passed into the Handlebars'
     },
-    'hbsOptions': {
+    hbsOptions: {
       description: 'Options passed to Handlebars#compile()'
     }
   }

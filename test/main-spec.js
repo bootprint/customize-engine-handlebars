@@ -6,7 +6,6 @@
  */
 
 /* global describe */
-/* global it */
 // /* global xdescribe */
 /* global it */
 
