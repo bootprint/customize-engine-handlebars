@@ -3,6 +3,12 @@
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <a name="current-release"></a>
+# Version 1.0.3 (Thu, 07 Nov 2019 20:41:47 GMT)
+
+* [c42b810](https://github.com/bootprint/customize-engine-handlebars/commit/c42b810) chore: add dist tag - Nils Knappmeier
+
+
+
 # Version 1.0.2 (Thu, 07 Nov 2019 20:39:38 GMT)
 
 * [8d214e6](https://github.com/bootprint/customize-engine-handlebars/commit/8d214e6) chore: bump m-io dependency - Nils Knappmeier
