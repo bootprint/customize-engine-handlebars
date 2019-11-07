@@ -1,9 +1,8 @@
 # customize-engine-handlebars 
 
-[![NPM version](https://badge.fury.io/js/customize-engine-handlebars.svg)](http://badge.fury.io/js/customize-engine-handlebars)
+[![NPM version](https://img.shields.io/npm/v/customize-engine-handlebars.svg)](https://npmjs.com/package/customize-engine-handlebars)
 [![Travis Build Status](https://travis-ci.org/bootprint/customize-engine-handlebars.svg?branch=master)](https://travis-ci.org/bootprint/customize-engine-handlebars)
 [![Coverage Status](https://img.shields.io/coveralls/bootprint/customize-engine-handlebars.svg)](https://coveralls.io/r/bootprint/customize-engine-handlebars)
-
 
 > Use handlebars as engine for customize
 
@@ -19,18 +18,17 @@ npm install customize-engine-handlebars
 The following example demonstrates how to use this module:
 
 <pre><code>
-
 ├── config-module.js
 ├── example-merge.js
 ├── example-partial-names.js
 ├── example.js
 ├── hb-helpers.js
 ├── hb-preprocessor.js
-├─┬ partials
+├─┬ partials/
 │ └── footer.hbs
-├─┬ partials2
+├─┬ partials2/
 │ └── footer.hbs
-└─┬ templates
+└─┬ templates/
   ├── text1.txt.hbs
   └── text2.txt.hbs
 </code></pre>
@@ -128,9 +126,11 @@ The output of this example is:
 
 ```
 https://api.github.com/users/nknapp
-{ handlebars: 
-   { 'text2.txt': 'I\'m nknapp\n\nI\'m living in DARMSTADT.\n\n------\nGithub-Name: Nils Knappmeier',
-     'text1.txt': 'I\'m nknapp\n\nI\'m living in Darmstadt.\n\n------\nGithub-Name: Nils Knappmeier' } }
+{ handlebars:
+   { 'text1.txt':
+      'I\'m nknapp\n\nI\'m living in Darmstadt.\n\n------\nGithub-Name: Nils Knappmeier',
+     'text2.txt':
+      'I\'m nknapp\n\nI\'m living in DARMSTADT.\n\n------\nGithub-Name: Nils Knappmeier' } }
 ```
 
 
@@ -167,9 +167,11 @@ The output of this example is
 
 ```
 https://api.github.com/users/nknapp
-{ handlebars: 
-   { 'text2.txt': 'I\'m nknapp\n\nI\'m living in DARMSTADT.\n\n------\nBlog: http://www.knappmeier.de',
-     'text1.txt': 'I\'m nknapp\n\nI\'m living in Darmstadt.\n\n------\nBlog: http://www.knappmeier.de' } }
+{ handlebars:
+   { 'text2.txt':
+      'I\'m nknapp\n\nI\'m living in DARMSTADT.\n\n------\nBlog: https://blog.knappi.org',
+     'text1.txt':
+      'I\'m nknapp\n\nI\'m living in Darmstadt.\n\n------\nBlog: https://blog.knappi.org' } }
 ```
 
 In a similar fashion, we could replace other parts of the configuration, like templates, helpers
@@ -204,9 +206,11 @@ customize()
 
 ```
 https://api.github.com/users/nknapp
-{ handlebars: 
-   { 'text1.txt': 'I\'m nknapp\n\nI\'m living in Darmstadt.\n\n[BEGIN footer]\n------\nBlog: http://www.knappmeier.de[END footer]',
-     'text2.txt': 'I\'m nknapp\n\nI\'m living in DARMSTADT.\n\n[BEGIN footer]\n------\nBlog: http://www.knappmeier.de[END footer]' } }
+{ handlebars:
+   { 'text1.txt':
+      'I\'m nknapp\n\nI\'m living in Darmstadt.\n\n[BEGIN footer]\n------\nBlog: https://blog.knappi.org[END footer]',
+     'text2.txt':
+      'I\'m nknapp\n\nI\'m living in DARMSTADT.\n\n[BEGIN footer]\n------\nBlog: https://blog.knappi.org[END footer]' } }
 ```
 
 ### Accessing engine and configuration helpers
@@ -230,70 +234,19 @@ It allows helpers to return promises instead of real values.
 
 
 
-##  API-reference
-
-## Functions
-
-<dl>
-<dt><a href="#addEngine">addEngine(helpers, hbs, hbsOptions)</a></dt>
-<dd><p>Wraps helpers with a function that provides
-and object {engine, config} as additional parameter</p>
-</dd>
-</dl>
-
-## Typedefs
-
-<dl>
-<dt><a href="#CustomizeHandlebarsConfig">CustomizeHandlebarsConfig</a> : <code>object</code></dt>
-<dd><p>The default configuration for the handlebars engine</p>
-</dd>
-</dl>
-
-<a name="addEngine"></a>
-
-## addEngine(helpers, hbs, hbsOptions)
-Wraps helpers with a function that provides
-and object {engine, config} as additional parameter
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| helpers | <code>object.&lt;function()&gt;</code> | the helpers object |
-| hbs | <code>Handlebars</code> | the current handlebars engine |
-| hbsOptions | <code>object</code> | the options of the Handlebars engine |
-
-<a name="CustomizeHandlebarsConfig"></a>
-
-## CustomizeHandlebarsConfig : <code>object</code>
-The default configuration for the handlebars engine
-
-**Kind**: global typedef  
-**Api**: public  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| partials | <code>string</code> | path to a partials directory. Each `.hbs`-file in the directory (or in the tree)   is registered as partial by its name (or relative path), without the `.hbs`-extension. |
-| partialWrapper | <code>function</code> | a function that can modify partials   just before they are registered with the Handlebars engine. It receives the partial contents as   first parameter and the partial name as second parameter and must return the new content (or a promise for   the content. The parameter was introduced mainly for debugging purposes (i.e. to surround each   partial with a string containing the name of the partial). When this function is overridden, the   parent function is available throught `this.parent`. |
-| helpers | <code>string</code> &#124; <code>object</code> &#124; <code>function</code> | if this is an object it is assumed to be a list of helper functions,   if this is function it is assumed to return an object of helper functions, if this is a string,   it is assumed to be the path to a module returning either an object of a function as above. |
-| templates | <code>string</code> | path to a directory containing templates. Handlebars is called with each `.hbs`-file   as template. The result of the engine consists of an object with a property for each template and the   Handlebars result for this template as value. |
-| data | <code>string</code> &#124; <code>object</code> &#124; <code>function</code> | a javascript-object to use as input for handlebars. Same as with the `helpers`,   it is also acceptable to specify the path to a module exporting the data and a function computing   the data. |
-| preprocessor | <code>function</code> &#124; <code>string</code> | a function that takes the input data as first parameter and   transforms it into another object or the promise for an object. It the input data is a promise itself,   is resolved before calling this function. If the preprocessor is overridden, the parent   preprocessor is available with `this.parent(data)` |
-| hbsOptions | <code>object</code> | options to pass to `Handlebars.compile`. |
 
 
+# License
 
+`customize-engine-handlebars` is published under the MIT-license.
 
-## License
-
-`customize-engine-handlebars` is published under the MIT-license. 
 See [LICENSE.md](LICENSE.md) for details.
 
-## Release-Notes
+
+# Release-Notes
  
 For release notes, see [CHANGELOG.md](CHANGELOG.md)
  
-## Contributing guidelines
+# Contributing guidelines
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
